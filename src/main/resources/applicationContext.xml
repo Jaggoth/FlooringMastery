@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/mvc
+          http://www.springframework.org/schema/mvc/spring-mvc.xsd
+          http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/aop  
+          http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+        
+		<bean id = "orderDao" class = "java.dao.FlooringMasteryOrderDAOFileImpl"></bean>
+		<bean id = "productDao" class = "java.dao.FlooringMasteryProductDAOFileImpl"></bean>
+		<bean id = "taxDao" class = "java.dao.FlooringMasteryTaxDAOFileImpl"></bean>
+		
+		<bean id = "service" class = "java.service.FlooringMasteryServiceImpl">
+			<constructor-arg ref="orderDao"></constructor-arg>
+			<constructor-arg ref="productDao"></constructor-arg>
+			<constructor-arg ref="taxDao"></constructor-arg>
+		</bean>
+          
+		<bean id = "userIO" class = "java.view.UserIOConsoleImpl"></bean>
+          
+		<bean id = "view" class = "java.view.FlooringMasteryView">
+      		<constructor-arg ref = "userIO"></constructor-arg>
+		</bean>
+    
+	    <bean id = "controller" class = "java.controller.FlooringMasteryController">
+	    	<constructor-arg ref = "service"></constructor-arg>
+	    	<constructor-arg ref = "view"></constructor-arg>
+	    </bean>
+</beans>
